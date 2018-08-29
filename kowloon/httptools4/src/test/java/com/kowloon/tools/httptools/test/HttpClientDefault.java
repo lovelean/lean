@@ -54,7 +54,8 @@ public class HttpClientDefault {
         //System.out.println("===="+rst);
     }
 
-    private CloseableHttpClient defaultClient() throws Exception {
+    @SuppressWarnings("unused")
+	private CloseableHttpClient defaultClient() throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         return httpClient;
     }
@@ -72,7 +73,8 @@ public class HttpClientDefault {
         return httpClient;
     }
 
-    private CloseableHttpClient defaultPoolClient() throws Exception {
+    @SuppressWarnings("unused")
+	private CloseableHttpClient defaultPoolClient() throws Exception {
         Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
                 .register("http", new PlainConnectionSocketFactory())
                 .build();
@@ -98,7 +100,7 @@ public class HttpClientDefault {
         //final CloseableHttpClient httpClient = defaultClient();
         final CloseableHttpClient httpClient = defaultNullPoolClient();
         //final CloseableHttpClient httpClient = defaultPoolClient();
-/*        for(int i=0;i<1000;i++) {
+        for(int i=0;i<1000;i++) {
             Thread thread = new Thread() {
                 @Override
                 public void run() {
@@ -113,6 +115,6 @@ public class HttpClientDefault {
             };
             thread.start();
         }
-        Thread.sleep(50000000);*/
+        Thread.sleep(50000000);
     }
 }

@@ -6,11 +6,11 @@
     	<version>1.0.0-SNAPSHOT</version>
   	</parent>
   	
-    <groupId>com.kowloon.tools.httptools3</groupId>
-    <artifactId>kowloon-httptools3</artifactId>
+    <groupId>com.kowloon.tools.encrypttools</groupId>
+    <artifactId>kowloon-encrypttools</artifactId>
     <packaging>jar</packaging>
 
-    <name>kowloon-httptools3</name>
+    <name>kowloon-encrypttools</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -38,17 +38,34 @@
     </distributionManagement>
 
     <dependencies>
-    	<!-- http -->
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
-        </dependency>
+    	<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcpkix-jdk15on</artifactId>
+		    <version>1.60</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk15on</artifactId>
+		    <version>1.60</version>
+		</dependency>
         <!--fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.3</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.codec -->
+		<dependency>
+		    <groupId>org.apache.directory.studio</groupId>
+		    <artifactId>org.apache.commons.codec</artifactId>
+		    <version>1.8</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

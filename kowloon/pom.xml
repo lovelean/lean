@@ -13,11 +13,14 @@
 	  	<module>httptools3</module>
 	  	<!-- org.apache.commons.httpclient.HttpClient 4.5 -->
 	  	<module>httptools4</module>
+	  	<!-- 加密工具 -->
+	  	<module>encrypttools</module>
   	</modules>
   
   	<properties>
-	    <maven.compiler.source>1.7</maven.compiler.source>
-	    <maven.compiler.target>1.7</maven.compiler.target>
+  		<jdk.version>1.8</jdk.version>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.target>1.8</maven.compiler.target>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 	    <spring.version>4.1.1.RELEASE</spring.version>

@@ -8,7 +8,6 @@
   	
     <groupId>com.kowloon.tools.httptools4</groupId>
     <artifactId>kowloon-httptools4</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>kowloon-httptools4</name>
@@ -18,10 +17,10 @@
     	<maven.test.skip>true</maven.test.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <spring.version>4.1.1.RELEASE</spring.version>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.targetJDK>1.7</project.build.targetJDK>
+        <project.build.targetJDK>1.8</project.build.targetJDK>
         <junit.version>4.12</junit.version>
     </properties>
 

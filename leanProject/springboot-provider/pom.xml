@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	<modelVersion>4.0.0</modelVersion>
+  	<parent>
+	    <groupId>com.lean.project</groupId>
+	    <artifactId>lean-project</artifactId>
+	    <version>1.0.0-SNAPSHOT</version>
+  	</parent>
+  	
+  	<artifactId>springboot-provider</artifactId>
+  	<name>springboot-provider</name>
+  	
+  	<url>http://maven.apache.org</url>
+  	<properties>
+    	<maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	</properties>
+  	
+  	<dependencies>
+  		<!-- 业务依赖 -->
+  		<dependency>
+		    <groupId>com.lean.project</groupId>
+		    <artifactId>springboot-common</artifactId>
+		    <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+  		<!-- dubbo spring boot -->
+  		<dependency>
+		    <groupId>com.alibaba.boot</groupId>
+		    <artifactId>dubbo-spring-boot-starter</artifactId>
+		    <version>0.2.0</version>
+		</dependency>
+  	
+		<!-- lombok.自动注入日志元素@Slf4j -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		</dependency>
+		
+		<!-- 内嵌了tomcat服务器，开发简单的web应用，此依赖即可  -->
+ 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		
+    	<!-- org.apache.commons.codec -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>commons-codec</groupId> -->
+<!-- 		    <artifactId>commons-codec</artifactId> -->
+<!-- 		    </dependency> -->
+        <!--fastjson-->
+<!--         <dependency> -->
+<!--             <groupId>com.alibaba</groupId> -->
+<!--             <artifactId>fastjson</artifactId> -->
+<!--             <version>1.2.3</version> -->
+<!--         </dependency> -->
+		
+		<!-- zookeeper -->
+<!-- 		<dependency> -->
+<!--             <groupId>org.apache.zookeeper</groupId> -->
+<!--             <artifactId>zookeeper</artifactId> -->
+<!--             <version>3.4.6</version> -->
+<!--             <exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>slf4j-api</artifactId> -->
+<!-- 					<groupId>org.slf4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>log4j</artifactId> -->
+<!-- 					<groupId>log4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>slf4j-log4j12</artifactId> -->
+<!-- 					<groupId>org.slf4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!--         </dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.101tec</groupId> -->
+<!-- 			<artifactId>zkclient</artifactId> -->
+<!-- 			<version>0.10</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>slf4j-api</artifactId> -->
+<!-- 					<groupId>org.slf4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>log4j</artifactId> -->
+<!-- 					<groupId>log4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>slf4j-log4j12</artifactId> -->
+<!-- 					<groupId>org.slf4j</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
+<!--         <dependency> -->
+<!-- 		    <groupId>org.springframework.boot</groupId> -->
+<!-- 		    <artifactId>spring-boot-starter-data-redis</artifactId> -->
+<!-- 		</dependency> -->
+		<!--定时任务调度quartz调度 -->
+<!--         <dependency> -->
+<!--             <groupId>org.quartz-scheduler</groupId> -->
+<!--             <artifactId>quartz</artifactId> -->
+<!--             <version>2.2.1</version> -->
+<!--         </dependency> -->
+  	</dependencies>
+    
+    <!-- 打包jar -->
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.bosssoft.itfinance.citizen.wallet.timer.WalletTimerApplication</mainClass>
+				</configuration>
+				<executions>
+			        <execution>
+			            <goals>
+			                <goal>repackage</goal>
+			            </goals>
+			        </execution>
+    			</executions>
+			</plugin>
+		</plugins>
+		<finalName>springboot-provider-1.0.0-SNAPSHOT</finalName>
+    </build>
+  
+</project>

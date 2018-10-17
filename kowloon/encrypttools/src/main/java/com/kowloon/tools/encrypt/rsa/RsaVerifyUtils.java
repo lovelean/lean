@@ -563,6 +563,7 @@ public class RsaVerifyUtils {
      * @throws EncryptCommonException
      */
     public static boolean rsaVerifyString(String content, byte[] sign, String publicKey, String charset) throws EncryptCommonException {
+    	System.out.println(content);
     	if(StringUtils.isEmpty(charset)) charset = CHARSET_ALG;
     	PublicKey pubKey = getPublicKeyFromX509(SIGN_TYPE_RSA, publicKey);
 		try {
@@ -652,6 +653,19 @@ public class RsaVerifyUtils {
 	 * Author：lean <br/>
 	 * @param params
 	 * @return
+	 * @throws CommonException 
+	 */
+	public static String createVerifyContentMapObject(Map<String, Object> params) throws EncryptCommonException {
+		return createVerifyContent(paramsFilter(params));
+	}
+	
+	/**
+	 * 
+	 * Description：组装待验签值[空值不计入] <br/>
+	 * Date：2018年8月28日 下午6:37:38　<br/>
+	 * Author：lean <br/>
+	 * @param params
+	 * @return
 	 * @throws EncryptCommonException 
 	 */
 	public static String createVerifyContent(Map<String, String> params) throws EncryptCommonException {
@@ -662,13 +676,12 @@ public class RsaVerifyUtils {
 	        ArrayList<String> keys = new ArrayList<String>(sortedParams.keySet());
 	        Collections.sort(keys);
 	        StringBuffer sb = new StringBuffer();
-	        int keyLastNum = keys.size() - 1;
 	        for (int i = 0; i < keys.size(); ++i) {
 	            String key = keys.get(i);
 	            String value = String.valueOf(params.get(key));
-	            if (isNotEmpty(key, value)) {
+	            if (isNotEmpty(key, value) && !SIGN.equals(key) && !SIGN_TYPE.equals(key)) {
+	            	if (sb.length() > 0) sb.append("&");
 	            	sb.append(key).append("=").append(value);
-	                if (i != keyLastNum) sb.append("&");
 	            }
 	        }
 	        return sb.toString();

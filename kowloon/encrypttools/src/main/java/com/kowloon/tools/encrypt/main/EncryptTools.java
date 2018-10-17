@@ -22,6 +22,56 @@ public class EncryptTools {
 	public static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQ6R5rq3DZ0zEfzsPnMZPjmb8dIVXpdNODrN8QjMmmCd75eNQwasAoLSiRc55w7TBxDK25hJYOVspnev3rHkeyvTzKE1NCWvysalvK7BBlPdA8NE0JNkiPS2iEliHRw/QM7F6/17cjWocoKEYBMfj5Em5YnCWzXu+5F08/26BKXwIDAQAB";
 	
 	public static void main(String[] args) {
+		testRsaVertifyType();
+	}
+	
+	public static void testRsaVertifyType(){
+		Map<String, Object> vertifyMap = new HashMap<String,Object>();
+        vertifyMap.put("data", "{\"signedTime\":\"20180824172342\",\"contractState\":\"02\",\"contractNo\":\"A20180824172332\",\"agreementNo\":\"A20180824000000000001\",\"reqReserved\":\"\",\"agencyCode\":\"01\",\"removeTime\":\"20180824175834\",\"expiredTime\":\"21180824172342\"}");
+        vertifyMap.put("sign", "Rrhzksyp3hzcqjyvLvBeDLfvHW8KDYikcz4LrCoTfAGQOKl6X7t1ryKXVKgVJpZVfZwwwh4gc0bzOQZXDQBohrpCUFA+z++eW7Wh34RgJGaPQX/SnA/J6ud1fOLZOthwj6R6RMIhAajn22+ftKBfZcgZ/COpHMVfaKOdmhtEj2M=");
+        vertifyMap.put("respCode", "01");
+        
+        Map<String, String> vertifyMapString = new HashMap<String,String>();
+        vertifyMapString.put("data", "{\"signedTime\":\"20180824172342\",\"contractState\":\"02\",\"contractNo\":\"A20180824172332\",\"agreementNo\":\"A20180824000000000001\",\"reqReserved\":\"\",\"agencyCode\":\"01\",\"removeTime\":\"20180824175834\",\"expiredTime\":\"21180824172342\"}");
+        vertifyMapString.put("sign", "Rrhzksyp3hzcqjyvLvBeDLfvHW8KDYikcz4LrCoTfAGQOKl6X7t1ryKXVKgVJpZVfZwwwh4gc0bzOQZXDQBohrpCUFA+z++eW7Wh34RgJGaPQX/SnA/J6ud1fOLZOthwj6R6RMIhAajn22+ftKBfZcgZ/COpHMVfaKOdmhtEj2M=");
+        vertifyMapString.put("respCode", "01");
+        try {
+        	boolean flag = verifyTools.rsaVerifyBase64MapObject(vertifyMap, (String)vertifyMap.get("sign"), publicKey, "UTF-8", "RSA");
+            System.out.println(flag);
+            boolean flag2 = verifyTools.rsaVerifyBase64MapString(vertifyMapString, vertifyMapString.get("sign"), publicKey, "UTF-8", "RSA");
+            System.out.println(flag2);
+		} catch (EncryptCommonException e) {
+			System.out.println(e.getCode()+"--"+e.getMsg());
+		} 
+	}
+	
+	public static void testRsaSignType(){
+		Map<String,Object> param = new HashMap<String,Object>();
+        param.put("timestamp", "20180829144444");
+        param.put("developerId", "zxy");
+        param.put("data", "{\"agencyCode\":\"01\",\"contractDate\":\"20180824\",\"contractNo\":\"A20180824172332\",\"reqReserved\":\"\"}");
+        param.put("method", "wallet.core.queryContract");
+        param.put("version","1.0.0");
+        param.put("qqq",1);
+        Map<String,String> paramString = new HashMap<String,String>();
+        paramString.put("timestamp", "20180829144444");
+        paramString.put("developerId", "zxy");
+        paramString.put("data", "{\"agencyCode\":\"01\",\"contractDate\":\"20180824\",\"contractNo\":\"A20180824172332\",\"reqReserved\":\"\"}");
+        paramString.put("method", "wallet.core.queryContract");
+        paramString.put("version","1.0.0");
+        paramString.put("qqq","1");
+        try{
+	        String sign = SignTools.signBase64MapObject(param, privateKey, "UTF-8", "RSA");
+	        String signString = SignTools.signBase64MapString(paramString, privateKey, "UTF-8", "RSA");
+	        System.out.println(sign);
+	        System.out.println(signString);
+	        System.out.println(sign.equals(signString));
+        } catch (EncryptCommonException e) {
+			System.out.println(e.getCode()+"--"+e.getMsg());
+		}    
+	}
+	
+	public static void testRsa(){
         Map<String,Object> param = new HashMap<String,Object>();
         param.put("timestamp", "20180829144444");
         param.put("developerId", "zxy");

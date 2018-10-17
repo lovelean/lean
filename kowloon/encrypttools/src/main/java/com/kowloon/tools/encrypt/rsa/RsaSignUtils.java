@@ -467,6 +467,19 @@ public class RsaSignUtils {
 	 * Author：lean <br/>
 	 * @param params
 	 * @return
+	 * @throws CommonException 
+	 */
+	public static String createSignContentMapObject(Map<String, Object> params) throws EncryptCommonException {
+		return createSignContent(paramsFilter(params));
+	}
+	
+	/**
+	 * 
+	 * Description：组装加密串[空值不计入] <br/>
+	 * Date：2018年8月28日 下午6:37:38　<br/>
+	 * Author：lean <br/>
+	 * @param params
+	 * @return
 	 * @throws EncryptCommonException 
 	 */
 	public static String createSignContent(Map<String, String> params) throws EncryptCommonException {
@@ -477,13 +490,12 @@ public class RsaSignUtils {
 	        ArrayList<String> keys = new ArrayList<String>(sortedParams.keySet());
 	        Collections.sort(keys);
 	        StringBuffer sb = new StringBuffer();
-	        int keyLastNum = keys.size() - 1;
 	        for (int i = 0; i < keys.size(); ++i) {
 	            String key = keys.get(i);
 	            String value = String.valueOf(params.get(key));
-	            if (isNotEmpty(key, value)) {
+	            if (isNotEmpty(key, value) && !SIGN.equals(key) && !SIGN_TYPE.equals(key)) {
+	            	if (sb.length() > 0) sb.append("&");
 	            	sb.append(key).append("=").append(value);
-	                if (i != keyLastNum) sb.append("&");
 	            }
 	        }
 	        return sb.toString();

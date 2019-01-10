@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:com.kowloon.lean.provider.server.EurekaServerApplication</config>
+		<config>java:com.kowloon.lean.eureka.server.two.EurekaServerApplication</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

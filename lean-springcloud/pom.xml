@@ -13,8 +13,12 @@
 	<modules>
 		<!-- 注册中心服务 -->
 		<module>eureka-server</module>
+		<!-- 注册中心服务two。有安全访问认证 -->
+		<module>eureka-server-two</module>
 	  	<!-- 提供者服务 -->
 	    <module>provider-server</module>
+	  	<!-- 消费者服务 -->
+	    <module>consumer-client</module>
   	</modules>
 	
 	<parent>

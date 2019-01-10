@@ -2,18 +2,23 @@ package com.kowloon.lean.provider.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 
  * ClassName：com.kowloon.lean.provider.server.ProviderServerApplication　　<br/>
  * Description：<br/>
- * Date：2018年12月27日 上午10:05:17<br/>
+ * Date：2019年1月9日 下午5:28:12<br/>
  * @author lean
  * @version 1.0
  */
 @SpringBootApplication
-@EnableEurekaClient
+//注意这里也可使用@EnableEurekaClient
+//但由于springcloud是灵活的，注册中心支持eureka、consul、zookeeper等
+//若写了具体的注册中心注解，则当替换成其他注册中心时，又需要替换成对应的注解了。
+//所以 直接使用@EnableDiscoveryClient 启动发现。
+//这样在替换注册中心时，只需要替换相关依赖即可。
+@EnableDiscoveryClient
 public class ProviderServerApplication {
 
 	public static void main(String[] args) {

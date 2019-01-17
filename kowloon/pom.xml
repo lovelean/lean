@@ -17,6 +17,8 @@
 	  	<module>encrypttools</module>
 	  	<!-- 工具中心 -->
 	  	<module>tools-center</module>
+	  	<!-- redis封装工具 -->
+	  	<module>redisTools</module>
   	</modules>
   
   	<properties>

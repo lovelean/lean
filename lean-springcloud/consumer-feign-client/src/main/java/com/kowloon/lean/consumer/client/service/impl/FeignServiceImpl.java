@@ -23,8 +23,6 @@ import feign.Contract;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
 
 /**
  * ClassName：com.kowloon.lean.consumer.client.service.impl.FeignServiceImpl　　<br/>
@@ -46,8 +44,8 @@ public class FeignServiceImpl implements IFeignService {
         // nameBuilder直接使用client，它会使用负载均衡
         nameBuilder = Feign.builder()
             .client(client)
-            .encoder(new JacksonEncoder())//.encoder(encoder)
-            .decoder(new JacksonDecoder())//.decoder(decoder)
+            .encoder(encoder)
+            .decoder(decoder)
             .contract(contract);
         
         if (client instanceof LoadBalancerFeignClient) { 

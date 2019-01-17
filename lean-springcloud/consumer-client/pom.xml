@@ -49,7 +49,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.kowloon.lean.provider.server.ConsumerClientApplication</mainClass>
+					<mainClass>com.kowloon.lean.consumer.client.ConsumerClientApplication</mainClass>
 				</configuration>
 				<executions>
 			        <execution>

@@ -58,7 +58,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.kowloon.lean.provider.server.ConsumerFeignClientApplication</mainClass>
+					<mainClass>com.kowloon.lean.consumer.client.ConsumerFeignClientApplication</mainClass>
 				</configuration>
 				<executions>
 			        <execution>

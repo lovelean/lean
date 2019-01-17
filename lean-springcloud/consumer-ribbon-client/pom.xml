@@ -40,7 +40,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.kowloon.lean.provider.server.ConsumerRibbonClientApplication</mainClass>
+					<mainClass>com.kowloon.lean.consumer.client.ConsumerRibbonClientApplication</mainClass>
 				</configuration>
 				<executions>
 			        <execution>

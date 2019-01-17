@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.kowloon.lean</groupId>
-	<artifactId>provider-server</artifactId>
+	<artifactId>consumer-feign-client</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<name>provider-server</name>
-	<description>提供者服务端</description>
+	<name>consumer-feign-client</name>
+	<description>消费者客户端</description>
 	
 	<parent>
 	    <groupId>com.kowloon.lean</groupId>
@@ -38,6 +38,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- jackson依赖 -->
+        <dependency>
+		    <groupId>com.netflix.feign</groupId>
+		    <artifactId>feign-jackson</artifactId>
+		    <version>8.18.0</version>
+		</dependency>
 	</dependencies>
 
 	<!-- 打包jar -->
@@ -47,7 +58,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.kowloon.lean.provider.server.ProviderServerApplication</mainClass>
+					<mainClass>com.kowloon.lean.provider.server.ConsumerFeignClientApplication</mainClass>
 				</configuration>
 				<executions>
 			        <execution>
@@ -58,7 +69,7 @@
     			</executions>
 			</plugin>
 		</plugins>
-		<finalName>provider-server-1.0.0-SNAPSHOT</finalName>
+		<finalName>consumer-feign-client-1.0.0-SNAPSHOT</finalName>
     </build>
 
 

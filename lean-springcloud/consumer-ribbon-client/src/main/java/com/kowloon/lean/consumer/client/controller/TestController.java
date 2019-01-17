@@ -8,30 +8,36 @@
  * @copyright  Corporation 2018    
  * @version v1.0 
  */
-package com.kowloon.lean.provider.server.controller;
+package com.kowloon.lean.consumer.client.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
- * ClassName：com.kowloon.lean.provider.server.controller.TestController　　<br/>
+ * ClassName：com.kowloon.lean.consumer.client.controller.TestController　　<br/>
  * Description：<br/>
- * Date：2019年1月9日 下午5:29:22<br/>
+ * Date：2019年1月11日 下午3:26:43<br/>
  * @author lean
  * @version 1.0
  */
-//@RestController = @Controller + @ResponseBody 默认直接返回json
 @RestController
 @Slf4j
 public class TestController {
-
+	
+	@Autowired
+	@Qualifier("restTemplate")
+	private	RestTemplate restTemplate;
+	
 	@GetMapping("/sayHello")
     public String sayHello() {
-		//访问服务提供者
-		log.info("服务被调用了!");
-		return "provider say hello to you!";
+        String url = "http://provider-server/sayHello";
+        log.info("url地址为：{}", url);
+		return restTemplate.getForObject(url, String.class);
     }
 }

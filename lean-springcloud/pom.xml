@@ -17,8 +17,18 @@
 		<module>eureka-server-two</module>
 	  	<!-- 提供者服务 -->
 	    <module>provider-server</module>
+	  	<!-- 提供者服务二号 -->
+	    <module>provider-server-two</module>
+	  	<!-- 提供者服务api -->
+	    <module>provider-server-api</module>
 	  	<!-- 消费者服务 -->
 	    <module>consumer-client</module>
+	  	<!-- 消费者服务LoadBalanceClient -->
+	    <module>consumer-loadbalance-client</module>
+	  	<!-- 消费者服务ribbon -->
+	    <module>consumer-ribbon-client</module>
+	  	<!-- 消费者服务feign -->
+	    <module>consumer-feign-client</module>
   	</modules>
 	
 	<parent>
@@ -41,6 +51,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- lombok.自动注入日志元素@Slf4j -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -19,6 +19,8 @@
 	  	<module>tools-center</module>
 	  	<!-- redis封装工具 -->
 	  	<module>redisTools</module>
+	  	<!-- 知识点集合 -->
+	  	<module>knowledge</module>
   	</modules>
   
   	<properties>

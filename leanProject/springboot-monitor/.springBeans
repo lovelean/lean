@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:com.lean.project.springboot.monitor.BootProviderApplication</config>
+		<config>java:com.lean.project.springboot.monitor.BootMonitorApplication</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

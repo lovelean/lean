@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	<modelVersion>4.0.0</modelVersion>
+  	<parent>
+	    <groupId>com.lean.project</groupId>
+	    <artifactId>lean-project</artifactId>
+	    <version>1.0.0-SNAPSHOT</version>
+  	</parent>
+  	
+  	<artifactId>springboot-monitor-center</artifactId>
+  	<name>springboot-monitor-center</name>
+  	
+  	<url>http://maven.apache.org</url>
+  	<properties>
+    	<maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	</properties>
+  	
+  	<dependencies>
+		<!-- lombok.自动注入日志元素@Slf4j -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		</dependency>
+		
+		<!-- 内嵌了tomcat服务器，开发简单的web应用，此依赖即可  -->
+ 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+  	</dependencies>
+    
+    <!-- 打包jar -->
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.lean.project.springboot.monitor.center.BootMonitorCenterApplication</mainClass>
+				</configuration>
+				<executions>
+			        <execution>
+			            <goals>
+			                <goal>repackage</goal>
+			            </goals>
+			        </execution>
+    			</executions>
+			</plugin>
+		</plugins>
+		<finalName>springboot-monitor-center-1.0.0-SNAPSHOT</finalName>
+    </build>
+  
+</project>

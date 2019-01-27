@@ -15,6 +15,14 @@
 	  	<module>springboot-provider</module>
 	  	<!-- springboot消费者 -->
 	  	<module>springboot-consumer</module>
+	  	<!-- springboot-monitor -->
+	  	<module>springboot-monitor</module>
+	  	<!-- springboot-monitor-api -->
+	  	<module>springboot-monitor-api</module>
+	  	<!-- springboot-monitor-api -->
+	  	<module>springboot-monitor-api</module>
+	  	<!-- springboot-monitor-center -->
+	  	<module>springboot-monitor-center</module>
   	</modules>
   
   	<parent>

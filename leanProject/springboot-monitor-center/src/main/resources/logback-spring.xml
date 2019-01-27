@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<springProperty scope="context" name="logHome" source="monitor.center.logback.home" defaultValue="/data/logs/monitor-center"/>
+	<springProperty scope="context" name="logContextName" source="spring.application.name" defaultValue="monitor-center"/>
+	
+	<property name="LOG_CONTEXT_NAME" value="${logContextName}" />
+	<property name="LOG_HOME" value="${logHome}"/>
+	<contextName>${LOG_CONTEXT_NAME}</contextName>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date %level [%file :%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/${LOG_CONTEXT_NAME}.%d{yyyy-MM-dd}-%i.log.gz</FileNamePattern>
+			<MaxHistory>60</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>100MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date %level [%file :%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 生产环境生效 -->
+	<springProfile name="local">
+	    <root level="info">
+	        <appender-ref ref="STDOUT" />
+	    </root>
+	</springProfile>
+	<springProfile name="dev,release,prod">
+	    <root level="info">
+	        <appender-ref ref="FILE" />
+	    </root>
+	</springProfile>
+</configuration>

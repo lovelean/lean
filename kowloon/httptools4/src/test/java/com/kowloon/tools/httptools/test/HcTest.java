@@ -19,15 +19,10 @@ import com.kowloon.tools.httpclient4.httpClient.HttpClientTool;
 public class HcTest {
     @Test
     public void httpClientForm() throws Exception {
-        String url = "http://172.18.169.21:8855/openapi/gateway";
+        String url = "http://172.18.160.222:32891/monitor/center/receiveInfo";
         Map<String,Object> params = new HashMap<>();
         params.put("version","1.0.0");
-        params.put("method","epay.terminal.downloadPublicKey");
-        params.put("timestamp","20171214171152");
-        params.put("developerId","test123");
-        params.put("sign","g9c9t6HxIsYUJJjSVX4RPFnYY1kkkzZj2xaSw/Jq8mLXHTcgnzMuuKleVK4COHsfR1pS/glWBm4YIObZT++TKAxjiBTuAfPU4UAdco2nVPQiGt9tlF/8LcC21j8NaSig2TAGwas2aKueTCztiZQCQNT26YoEyJDg6gtpkX2LaWM=");
-        //HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
-        //String rst = BsHttpClientUtils.sendForm(url,params,proxy);
+        params.put("info","123");
         String rst = HttpClientTool.sendForm(url,params);
         System.out.println("rst===="+rst);
     }

@@ -21,6 +21,8 @@
 	  	<module>redisTools</module>
 	  	<!-- 知识点集合 -->
 	  	<module>knowledge</module>
+	  	<!-- aop监控工具 -->
+	  	<module>monitorTools</module>
   	</modules>
   
   	<properties>

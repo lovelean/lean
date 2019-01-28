@@ -31,11 +31,15 @@ public class DemoService implements IDemoService {
 	@Override
 	@MonitorAnnotation(timeout=500, dealIfTimeout=true)
 	public String demo(String str) {
-		log.info("休眠:"+str);;
+		log.info("休眠:"+str);
 		try {
 			Thread.sleep(Long.valueOf(str));
 		} catch (NumberFormatException | InterruptedException e) {
 			
+		}
+		if(str.equals("501")) {
+			int a = 5/0;
+			log.info("5/0="+a);
 		}
 		return "sleep " + str;
 	}

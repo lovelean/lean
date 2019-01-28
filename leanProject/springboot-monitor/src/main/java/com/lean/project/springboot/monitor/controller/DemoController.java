@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lean.project.springboot.monitor.api.config.MonitorTool;
 import com.lean.project.springboot.monitor.service.IDemoService;
 
 /**
@@ -39,6 +40,26 @@ public class DemoController {
 		}
 		String aaa = demoService.demo(sleep);
 		return aaa;
+	}
+	
+	@RequestMapping(value = "/closeMonitor", method = RequestMethod.GET)
+	public String closeMonitor() {
+		try {
+			MonitorTool.closeMonitorCenter();
+			return "success";
+		} catch (Exception e) {
+			return "error:"+e.getMessage();
+		}
+	}
+	
+	@RequestMapping(value = "/openMonitor", method = RequestMethod.GET)
+	public String openMonitor() {
+		try {
+			MonitorTool.openMonitorCenter();
+			return "success";
+		} catch (Exception e) {
+			return "error:"+e.getMessage();
+		}
 	}
 	
 	@RequestMapping(value = "/healthCheck", method = {RequestMethod.GET,RequestMethod.POST})

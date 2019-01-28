@@ -19,6 +19,29 @@ package com.lean.project.springboot.monitor.api.config;
  */
 public class MonitorConfig {
 	
-	public static String monitorCenterUrl = "http://172.18.160.222:31891/monitor/center/receiveInfo";
+	//监控中心地址
+	private String monitorCenterUrl;
 	
+	//服务中心启用状态.默认不启用
+	private boolean monitorEnabled = false;
+
+	public MonitorConfig() {
+		
+	}
+	
+	public String getMonitorCenterUrl() {
+		return monitorCenterUrl;
+	}
+
+	public void setMonitorCenterUrl(String monitorCenterUrl) {
+		this.monitorCenterUrl = monitorCenterUrl;
+	}
+
+	public boolean isMonitorEnabled() {
+		return monitorEnabled;
+	}
+
+	public void setMonitorEnabled(boolean monitorEnabled) {
+		this.monitorEnabled = monitorEnabled;
+	}
 }

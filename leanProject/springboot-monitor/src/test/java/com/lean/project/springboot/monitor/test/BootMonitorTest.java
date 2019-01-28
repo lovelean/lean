@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.lean.project.springboot.monitor.api.config.MonitorConfig;
-import com.lean.project.springboot.monitor.api.httpclient.HttpClientTool;
+import com.lean.project.springboot.monitor.api.config.MonitorTool;
 
 /**
  * 
@@ -29,8 +28,7 @@ public class BootMonitorTest {
     	params.put("version","1.0.0");   
     	params.put("info",new String("接口超时"));       	
     	try {
-    		String result = HttpClientTool.sendForm(MonitorConfig.monitorCenterUrl, params);
-    		System.out.println(result);
+    		MonitorTool.sendInfo(params);
     	} catch (Exception e) {
     		System.out.println("post error:"+e.getMessage());
 		}

@@ -31,19 +31,19 @@ public @interface MonitorAnnotation {
 
 	/**
 	 * 
-	 * Description：接口超时时间,单位毫秒.默认值100毫秒 <br/>
+	 * Description：接口超时时间,单位毫秒.默认值5000毫秒 <br/>
 	 * Date：2019年1月25日 下午3:37:18　<br/>
 	 * Author：lean <br/>
 	 * @return 设置的超时时间
 	 */
-    int timeout() default 400;
+    int timeout() default 5000;
  
     /**
      * 
      * Description：当接口响应超时时,是否需要处理.默认处理 <br/>
      * Date：2019年1月25日 下午3:37:33　<br/>
      * Author：lean <br/>
-     * @return 返回ture需要发送邮件
+     * @return 返回ture需要处理
      */
     boolean dealIfTimeout() default true;
 }

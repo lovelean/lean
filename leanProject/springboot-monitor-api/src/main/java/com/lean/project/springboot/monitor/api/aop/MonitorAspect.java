@@ -25,8 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.lean.project.springboot.monitor.api.config.MonitorConfig;
-import com.lean.project.springboot.monitor.api.httpclient.HttpClientTool;
+import com.lean.project.springboot.monitor.api.config.MonitorTool;
 
 /**
  * 
@@ -50,9 +49,14 @@ public class MonitorAspect {
 	public void doBefore(JoinPoint joinPoint) {
 		//拦截执行前处理
 	}
+
+	@After("monitor()&&@annotation(MonitorAnnotation)")
+    public void doAfter() {
+        //拦截后的逻辑
+    }
 	
     @Around("monitor()&&@annotation(MonitorAnnotation)")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = null;
         try {
         	Object[] args = proceedingJoinPoint.getArgs();
@@ -60,22 +64,43 @@ public class MonitorAspect {
         	result = proceedingJoinPoint.proceed(args);
             long finish = System.currentTimeMillis();
             long useTime = finish - start;
-            /** 接口响应时间监控 */
-            interfaceUseTimeMonitor(proceedingJoinPoint.getTarget().getClass(), proceedingJoinPoint.getSignature().getName(), args, useTime);
+            if(MonitorTool.isMonitorEnabled()) {
+            	//服务中心启用的时候处理
+            	interfaceUseTimeMonitor(proceedingJoinPoint.getTarget().getClass(), proceedingJoinPoint.getSignature().getName(), args, useTime);
+            }
 		} catch (Throwable e) {
-			//处理你的异常
-			logger.info("出异常了:"+e.getMessage());
+			//处理你的异常.最终直接抛出错误
+			if(MonitorTool.isMonitorEnabled()) {
+            	//服务中心启用的时候处理
+				interfaceErrorMonitor(proceedingJoinPoint.getTarget().getClass(), proceedingJoinPoint.getSignature().getName(), e.getMessage());
+            }
+			throw e;
 		}finally {
-			//处理其他
-			logger.info("其他业务处理");
+			//处理其他业务
 		}
         return result;
     }
 
-    @After("monitor()&&@annotation(MonitorAnnotation)")
-    public void doAfter() {
-        //拦截后的逻辑
-    }
+	/**
+	 * 
+	 * Description：接口失败监控 <br/>
+	 * Date：2019年1月28日 上午10:15:58　<br/>
+	 * Author：lean <br/>
+	 * @param targetClass 接口实现class
+     * @param methodName 接口方法
+	 * @param errorMsg 异常信息
+	 */
+    @SuppressWarnings("rawtypes")
+	private void interfaceErrorMonitor(Class targetClass, String methodName, String errorMsg) {
+    	Map<String,Object> params = new HashMap<>();
+    	params.put("version","1.0.0");   
+    	params.put("info",new String("方法执行异常,interface:[{"+targetClass.getSimpleName() + "." + methodName+"}].errorMsg:[{"+errorMsg+"}]"));       	
+    	try {
+    		MonitorTool.sendInfo(params);
+		} catch (Exception e) {
+			logger.error("sendInfo error:"+e.getMessage());
+		}
+	}
     
     /**
      * 
@@ -89,8 +114,7 @@ public class MonitorAspect {
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	private void interfaceUseTimeMonitor(Class targetClass, String methodName, Object[] args, long useTime) {
-    	logger.info("与接口注解最高用时做比较,符合条件做处理。usertime==="+useTime);
-        try {
+    	try {
             Class[] classArray = new Class[args.length];
             for(int i = 0; i < args.length ; ++i) {
                 classArray[i] = args[i].getClass();
@@ -104,15 +128,15 @@ public class MonitorAspect {
                 	params.put("version","1.0.0");   
                 	params.put("info",new String("接口超时,interface:[{"+targetClass.getSimpleName() + "." + methodName+"}].useTime:[{"+useTime+"}].settingUseTime:[{"+monitorAnnotation.timeout()+"}]"));       	
                 	try {
-                		String result = HttpClientTool.sendForm(MonitorConfig.monitorCenterUrl, params);
-                    	logger.info(result);
+                		MonitorTool.sendInfo(params);
 					} catch (Exception e) {
-						logger.error("post error:"+e.getMessage());
+						logger.error("sendInfo exception error:"+e.getMessage());
 					}
                 }
             }
         } catch(Throwable e) {
             /** 监控逻辑处理错误什么都不做 */
+        	logger.error("sendInfo throwable error:"+e.getMessage());
         }
     }
 }

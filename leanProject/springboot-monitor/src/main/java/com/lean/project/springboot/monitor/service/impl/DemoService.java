@@ -37,10 +37,6 @@ public class DemoService implements IDemoService {
 		} catch (NumberFormatException | InterruptedException e) {
 			
 		}
-		if(str.equals("501")) {
-			int a = 5/0;
-			log.info("5/0="+a);
-		}
 		return "sleep " + str;
 	}
 

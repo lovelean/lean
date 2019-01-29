@@ -89,10 +89,28 @@ public class MonitorTool {
      * @throws Exception
      */
     public static void sendInfo(Map<String,Object> params) throws Exception {
-        if(monitorConfig.getMonitorCenterUrl() == null || monitorConfig.getMonitorCenterUrl().equals("") || monitorConfig.getMonitorCenterUrl().length() == 0) {
+        if(monitorConfig.getMonitorCenterUrl() == null || "".equals(monitorConfig.getMonitorCenterUrl()) || monitorConfig.getMonitorCenterUrl().length() == 0) {
         	throw new Exception("监控服务中心地址未配置,请确认!");
         }else {
         	HttpClientTool.sendForm(monitorConfig.getMonitorCenterUrl(), params);
+        }
+    }
+    
+    /**
+     * 
+     * Description：发送信息[指定监控服务中心地址] <br/>
+     * Date：2019年1月28日 上午9:47:37　<br/>
+     * Author：lean <br/>
+     * @param monitorCenterUrl 服务中心地址
+     * @param params 参数
+     * @return
+     * @throws Exception
+     */
+    public static void sendInfo(String monitorCenterUrl, Map<String,Object> params) throws Exception {
+        if(monitorCenterUrl == null || "".equals(monitorCenterUrl) || monitorCenterUrl.length() == 0) {
+        	throw new Exception("监控服务中心地址未指定,请确认!");
+        }else {
+        	HttpClientTool.sendForm(monitorCenterUrl, params);
         }
     }
 }

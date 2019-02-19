@@ -10,9 +10,14 @@
  */
 package com.lean.project.springboot.monitor.api.aop;
 
+import java.io.File;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -75,10 +80,10 @@ public class MonitorAspect {
         	result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
             long finish = System.currentTimeMillis();
             long useTime = finish - start;
-            monitorCenterDeal(proceedingJoinPoint, InfoType.TIME_OUT, useTime);
+            monitorCenterDeal(proceedingJoinPoint, InfoType.TIME_OUT, useTime, result);
 		} catch (Throwable e) {
 			//处理你的异常.最终直接抛出错误
-			monitorCenterDeal(proceedingJoinPoint, InfoType.ERROR, e.getMessage());
+			monitorCenterDeal(proceedingJoinPoint, InfoType.ERROR, e.getMessage(), null);
 			throw e;
 		}finally {
 			//处理其他业务
@@ -96,7 +101,7 @@ public class MonitorAspect {
 	 * @param errorMsg 异常信息
 	 */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	private void monitorCenterDeal(ProceedingJoinPoint proceedingJoinPoint, InfoType infoType, Object info) {
+	private void monitorCenterDeal(ProceedingJoinPoint proceedingJoinPoint, InfoType infoType, Object info, Object result) {
     	try {
     		Object[] args = proceedingJoinPoint.getArgs();
             String methodName = proceedingJoinPoint.getSignature().getName();
@@ -114,6 +119,8 @@ public class MonitorAspect {
             	params.put("serverName", isNotEmpty(monitorAnnotation.serverName())?monitorAnnotation.serverName():targetClass.getSimpleName());
             	params.put("methodName", isNotEmpty(monitorAnnotation.methodName())?monitorAnnotation.methodName():method.getName());
             	params.put("recordMode", monitorAnnotation.recordMode().getCode());
+            	params.put("inParams", obj2String(args));//入参
+            	params.put("outParam", obj2String(result));//出参
             	boolean needSend = false;
             	switch (infoType) {
         		case ERROR:
@@ -163,6 +170,50 @@ public class MonitorAspect {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * 
+	 * Description：序列化对象为字符串，并排除request和response <br/>
+	 * Date：2019年2月19日 上午10:31:31　<br/>
+	 * Author：lean <br/>
+	 * @param object
+	 * @return
+	 * @throws BaseException
+	 */
+    private String obj2String(Object object) {
+		if (object == null) return null;
+		try {
+			if (object instanceof Object[]) {
+				Object[] params = (Object[]) object;
+				if (params.length == 0) {
+					return null;
+				}
+				StringBuffer sb = new StringBuffer();
+				for (Object obj : params) {
+					if (obj instanceof HttpServletRequest) {
+						sb.append("request").append(",");
+					} else if (obj instanceof HttpServletResponse) {
+						sb.append("response").append(",");
+					} else if (obj instanceof File[]) {
+						sb.append("files").append(",");
+					} else if (obj instanceof File) {
+						sb.append("file").append(",");
+					}else {
+						byte[] bytes = JSON.toJSONBytes(obj);
+						sb.append(new String(bytes, "UTF-8")).append(",");
+					}
+				}
+				return sb.toString();
+			}
+			if (object instanceof Serializable) {
+				byte[] bytes = JSON.toJSONBytes(object);
+				return new String(bytes, "UTF-8");
+			}
+		} catch (Exception e) {
+			logger.error("aop日志序列化入参失败:", e.getMessage());
+		}
+		return null;
 	}
     
 }

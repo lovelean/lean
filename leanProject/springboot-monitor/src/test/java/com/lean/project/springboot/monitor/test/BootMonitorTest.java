@@ -1,14 +1,12 @@
 package com.lean.project.springboot.monitor.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.lean.project.springboot.monitor.api.config.MonitorTool;
+import com.lean.project.springboot.monitor.service.IDemoService;
 
 /**
  * 
@@ -22,15 +20,15 @@ import com.lean.project.springboot.monitor.api.config.MonitorTool;
 @SpringBootTest
 public class BootMonitorTest {
 	
+	@Autowired
+	private IDemoService demoService;
+	
 	@Test
 	public void testA() {
-		Map<String,Object> params = new HashMap<>();
-    	params.put("version","1.0.0");   
-    	params.put("info",new String("接口超时"));       	
-    	try {
-    		MonitorTool.sendInfo(params);
-    	} catch (Exception e) {
-    		System.out.println("post error:"+e.getMessage());
-		}
+		long start = System.currentTimeMillis();
+		System.out.println("first demo:100,,,time:"+start);
+		demoService.demo("1000");
+        long finish = System.currentTimeMillis();
+		System.out.println("first demo end,,,usetime:"+(finish - start));
 	}
 }

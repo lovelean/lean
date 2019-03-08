@@ -80,7 +80,8 @@ public class MonitorAspect {
         	result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
             long finish = System.currentTimeMillis();
             long useTime = finish - start;
-            monitorCenterDeal(proceedingJoinPoint, InfoType.TIME_OUT, useTime, result);
+            logger.info("=========usetime="+useTime);
+            //monitorCenterDeal(proceedingJoinPoint, InfoType.TIME_OUT, useTime, result);
 		} catch (Throwable e) {
 			//处理你的异常.最终直接抛出错误
 			monitorCenterDeal(proceedingJoinPoint, InfoType.ERROR, e.getMessage(), null);
